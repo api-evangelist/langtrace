@@ -1,0 +1,73 @@
+aid: langtrace
+name: Langtrace AI
+review:
+  question: Does Langtrace expose a documented public WebSocket API?
+  answer: false
+  date: '2026-06-20'
+  reviewer: API Evangelist
+  asyncapiSpecCreated: false
+  asyncapiScopeNote: |
+    No AsyncAPI document was created. Langtrace's only push-style surface is
+    OpenTelemetry trace ingestion (POST /api/trace), which is a synchronous
+    OTLP/HTTP request-response transport, not a streaming protocol. There is
+    no documented WebSocket, SSE, or other event-stream API to model, so no
+    AsyncAPI artifact was authored.
+findings:
+  summary: |
+    Langtrace does not publish a documented public WebSocket API. It is an
+    open-source, OpenTelemetry-based observability platform. The integration
+    surface is OTLP/HTTP trace ingestion: clients (the Langtrace SDKs or an
+    OpenTelemetry Collector with an otlphttp exporter) POST JSON-encoded spans
+    to /api/trace authenticated with an x-api-key header. This is a standard
+    synchronous HTTP request-response transport, not WebSocket or SSE
+    streaming. The remaining documented surface is a conventional REST API for
+    creating projects, minting project API keys, fetching versioned prompts
+    from the prompt registry, and retrieving stored traces with pagination.
+    Both Langtrace Cloud (app.langtrace.ai) and self-hosted deployments expose
+    the same endpoints.
+  transports:
+    - protocol: REST
+      scheme: https
+      baseURL: https://app.langtrace.ai/api
+      documented: true
+    - protocol: OTLP/HTTP
+      scheme: https
+      note: OpenTelemetry trace ingestion via POST /api/trace with JSON-encoded spans, no compression. Synchronous HTTP request-response, not WebSocket or SSE.
+      documented: true
+    - protocol: WebSocket
+      scheme: wss
+      documented: false
+      note: No WebSocket endpoint is documented in the Langtrace API reference, OTEL configuration, or any product page as of the review date.
+  endpointsConfirmedRest:
+    - POST https://app.langtrace.ai/api/trace
+    - POST https://app.langtrace.ai/api/project
+    - POST https://app.langtrace.ai/api/api-key?project_id={projectId}
+    - GET  https://app.langtrace.ai/api/promptset?promptset_id={id}
+    - POST https://app.langtrace.ai/api/traces
+sources:
+  - url: https://docs.langtrace.ai/introduction
+    type: Documentation
+    note: Overview of the open-source, OpenTelemetry-based platform; no WebSocket mentioned.
+  - url: https://docs.langtrace.ai/supported-integrations/otel-support/otel-configuration
+    type: Documentation
+    note: OTEL trace ingestion endpoint /api/trace, otlphttp exporter, JSON encoding, no compression, x-api-key header.
+  - url: https://docs.langtrace.ai/api-reference/traces/POST-trace
+    type: APIReference
+    note: Send OpenTelemetry-compatible traces; synchronous OTLP/HTTP POST.
+  - url: https://docs.langtrace.ai/api-reference/traces/POST-traces
+    type: APIReference
+    note: Paginated trace retrieval, pageSize max 100; HTTPS REST.
+  - url: https://docs.langtrace.ai/api-reference/project/POST-project
+    type: APIReference
+    note: Create project; HTTPS REST with x-api-key.
+  - url: https://docs.langtrace.ai/api-reference/prompt-registry/GET-prompt-registry
+    type: APIReference
+    note: Fetch versioned prompt from registry; HTTPS REST GET.
+actions:
+  asyncapiPath: null
+  apisYmlUpdated: true
+  reason: |
+    No WebSocket or SSE streaming surface exists. The only push transport is
+    OTLP/HTTP trace ingestion, which is synchronous request-response and is
+    documented explicitly as such in apis.yml and this review. No AsyncAPI
+    document was authored because there is no real streaming surface to model.

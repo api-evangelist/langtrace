@@ -1,0 +1,142 @@
+aid: langtrace
+url: https://raw.githubusercontent.com/api-evangelist/langtrace/refs/heads/main/apis.yml
+name: Langtrace AI
+kind: company
+description: Langtrace is an open-source, OpenTelemetry-based end-to-end observability
+  platform for LLM applications, built by Scale3 Labs. It captures real-time traces,
+  metrics, and evaluations for popular LLMs, agent frameworks, and vector databases.
+  Traces are ingested via an OTLP/HTTP endpoint and a REST API exposes projects,
+  prompt registry, and trace retrieval. Available as a free self-hosted deployment
+  or as Langtrace Cloud.
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+tags:
+- AI
+- LLM
+- Observability
+- OpenTelemetry
+- Tracing
+- Open Source
+created: '2026-06-20'
+modified: '2026-06-20'
+specificationVersion: '0.19'
+apis:
+- aid: langtrace:trace-ingestion-otel
+  name: Langtrace Trace Ingestion (OTEL)
+  tags:
+  - OpenTelemetry
+  - Tracing
+  - Ingestion
+  - OTLP
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.langtrace.ai/api-reference/traces/POST-trace
+  baseURL: https://app.langtrace.ai/api
+  properties:
+  - url: https://docs.langtrace.ai/supported-integrations/otel-support/otel-configuration
+    type: Documentation
+  - url: https://docs.langtrace.ai/api-reference/traces/POST-trace
+    type: APIReference
+  - url: openapi/langtrace-openapi.yml
+    type: OpenAPI
+  - url: collections/langtrace.postman_collection.json
+    type: PostmanCollection
+  - url: collections/langtrace.opencollection.json
+    type: OpenCollection
+  - url: https://github.com/Scale3-Labs/langtrace
+    type: GitHub
+  description: OpenTelemetry-compatible trace ingestion endpoint (POST /api/trace).
+    Accepts JSON-encoded OTLP/HTTP spans authenticated with a project-level x-api-key
+    header, for both Langtrace Cloud and self-hosted deployments.
+- aid: langtrace:projects-api-keys
+  name: Langtrace Projects and API Keys
+  tags:
+  - Projects
+  - API Keys
+  - Management
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.langtrace.ai/api-reference/project/POST-project
+  baseURL: https://app.langtrace.ai/api
+  properties:
+  - url: https://docs.langtrace.ai/api-reference/project/POST-project
+    type: Documentation
+  - url: https://docs.langtrace.ai/api-reference/project/POST-project-api-key
+    type: APIReference
+  - url: openapi/langtrace-openapi.yml
+    type: OpenAPI
+  - url: collections/langtrace.postman_collection.json
+    type: PostmanCollection
+  - url: collections/langtrace.opencollection.json
+    type: OpenCollection
+  - url: https://github.com/Scale3-Labs/langtrace
+    type: GitHub
+  description: REST endpoints to create projects (POST /api/project) under a team and
+    to mint project-level API keys (POST /api/api-key), authenticated with an x-api-key
+    header.
+- aid: langtrace:prompt-registry
+  name: Langtrace Prompt Registry
+  tags:
+  - Prompt Registry
+  - Versioning
+  - Prompts
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.langtrace.ai/api-reference/prompt-registry/GET-prompt-registry
+  baseURL: https://app.langtrace.ai/api
+  properties:
+  - url: https://docs.langtrace.ai/api-reference/prompt-registry/GET-prompt-registry
+    type: Documentation
+  - url: https://docs.langtrace.ai/api-reference/prompt-registry/GET-prompt-registry
+    type: APIReference
+  - url: openapi/langtrace-openapi.yml
+    type: OpenAPI
+  - url: collections/langtrace.postman_collection.json
+    type: PostmanCollection
+  - url: collections/langtrace.opencollection.json
+    type: OpenCollection
+  - url: https://github.com/Scale3-Labs/langtrace
+    type: GitHub
+  description: Fetch versioned prompts from the prompt registry (GET /api/promptset)
+    with optional version selection and dynamic variable substitution, returning the
+    live prompt when no version is specified.
+- aid: langtrace:trace-retrieval
+  name: Langtrace Trace Retrieval and Metrics
+  tags:
+  - Traces
+  - Metrics
+  - Retrieval
+  - Evaluations
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.langtrace.ai/api-reference/traces/POST-traces
+  baseURL: https://app.langtrace.ai/api
+  properties:
+  - url: https://docs.langtrace.ai/api-reference/traces/POST-traces
+    type: Documentation
+  - url: https://docs.langtrace.ai/api-reference/traces/POST-traces
+    type: APIReference
+  - url: openapi/langtrace-openapi.yml
+    type: OpenAPI
+  - url: collections/langtrace.postman_collection.json
+    type: PostmanCollection
+  - url: collections/langtrace.opencollection.json
+    type: OpenCollection
+  - url: https://github.com/Scale3-Labs/langtrace
+    type: GitHub
+  description: Paginated retrieval of stored traces for a project (POST /api/traces),
+    returning span results plus pagination metadata. Underlying spans carry the token,
+    cost, latency, and evaluation metrics surfaced in the Langtrace dashboards.
+common:
+- type: GitHubOrganization
+  url: https://github.com/Scale3-Labs
+- type: LinkedIn
+  url: https://www.linkedin.com/company/langtrace
+- type: Website
+  url: https://www.langtrace.ai
+- type: Documentation
+  url: https://docs.langtrace.ai
+- type: Plans
+  url: plans/langtrace-plans-pricing.yml
+- type: RateLimits
+  url: rate-limits/langtrace-rate-limits.yml
+- type: FinOps
+  url: finops/langtrace-finops.yml
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

@@ -1,0 +1,335 @@
+openapi: 3.0.1
+info:
+  title: Langtrace AI API
+  description: >-
+    REST API for Langtrace, an open-source, OpenTelemetry-based observability
+    platform for LLM applications by Scale3 Labs. Covers OTLP/HTTP trace
+    ingestion, project and API key management, the prompt registry, and
+    paginated trace retrieval. The same endpoints are available on Langtrace
+    Cloud (app.langtrace.ai) and on self-hosted deployments. All requests are
+    authenticated with an x-api-key header.
+  termsOfService: https://www.langtrace.ai/terms
+  contact:
+    name: Langtrace AI Support
+    url: https://docs.langtrace.ai
+  license:
+    name: AGPL-3.0
+    url: https://github.com/Scale3-Labs/langtrace/blob/main/LICENSE
+  version: '1.0'
+servers:
+  - url: https://app.langtrace.ai/api
+    description: Langtrace Cloud
+  - url: http://localhost:3000/api
+    description: Self-hosted Langtrace deployment
+security:
+  - ApiKeyAuth: []
+tags:
+  - name: Traces
+    description: OpenTelemetry trace ingestion and retrieval.
+  - name: Projects
+    description: Project and API key management.
+  - name: Prompt Registry
+    description: Versioned prompt storage and retrieval.
+paths:
+  /trace:
+    post:
+      operationId: sendTrace
+      tags:
+        - Traces
+      summary: Send OpenTelemetry-compatible traces to Langtrace.
+      description: >-
+        Ingests JSON-encoded OTLP/HTTP spans. Use an OTEL exporter configured
+        for the otlphttp protocol with JSON encoding and no compression, and set
+        the x-api-key header to a project-level API key. Available on Langtrace
+        Cloud and self-hosted instances.
+      requestBody:
+        required: true
+        description: An OTLP/HTTP ExportTraceServiceRequest payload, JSON-encoded.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OTLPTraceExportRequest'
+      responses:
+        '200':
+          description: Traces accepted for ingestion.
+        '401':
+          description: Invalid or missing API key.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /project:
+    post:
+      operationId: createProject
+      tags:
+        - Projects
+      summary: Create a new project.
+      description: Creates a new project under the specified team.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateProjectRequest'
+      responses:
+        '200':
+          description: Project created.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Project'
+        '401':
+          description: Invalid api key unauthorized.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /api-key:
+    post:
+      operationId: createProjectApiKey
+      tags:
+        - Projects
+      summary: Create an API key for an existing project.
+      description: Mints a new project-level API key for the given project.
+      parameters:
+        - name: project_id
+          in: query
+          required: true
+          description: ID of the project to create an API key for.
+          schema:
+            type: string
+      responses:
+        '200':
+          description: API key created.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiKeyResponse'
+        '401':
+          description: Invalid api key unauthorized.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /promptset:
+    get:
+      operationId: getPromptFromRegistry
+      tags:
+        - Prompt Registry
+      summary: Get a prompt from the registry.
+      description: >-
+        Fetches a prompt set from the prompt registry. If no version is
+        provided the live prompt is returned; if there are no live prompts an
+        error is thrown. Dynamic variables may be supplied using
+        variables.<variable_name> query parameters.
+      parameters:
+        - name: promptset_id
+          in: query
+          required: true
+          description: ID of the prompt registry, found in the Langtrace UI.
+          schema:
+            type: string
+        - name: version
+          in: query
+          required: false
+          description: Prompt version to fetch. Defaults to the live prompt.
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Prompt set returned.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PromptSet'
+        '401':
+          description: Invalid api key unauthorized.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /traces:
+    post:
+      operationId: downloadTraces
+      tags:
+        - Traces
+      summary: Download traces for a project.
+      description: >-
+        Retrieves stored traces for a project, paginated. Returns up to 100
+        traces per page along with pagination metadata.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GetTracesRequest'
+      responses:
+        '200':
+          description: Traces returned.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetTracesResponse'
+        '401':
+          description: Invalid api key unauthorized.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+components:
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: x-api-key
+      description: Project-level (or team-level for project creation) API key.
+  schemas:
+    OTLPTraceExportRequest:
+      type: object
+      description: >-
+        OTLP/HTTP ExportTraceServiceRequest. JSON-encoded resource spans as
+        produced by an OpenTelemetry exporter. See the OpenTelemetry protocol
+        specification for the full structure.
+      properties:
+        resourceSpans:
+          type: array
+          items:
+            type: object
+    CreateProjectRequest:
+      type: object
+      required:
+        - teamId
+      properties:
+        teamId:
+          type: string
+          description: ID of your team, found in the Langtrace UI.
+        name:
+          type: string
+          description: Name of the project.
+        description:
+          type: string
+          description: Description of the project being created.
+        createDefaultTests:
+          type: boolean
+          description: Whether default tests should be created.
+    Project:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        teamId:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+    ApiKeyResponse:
+      type: object
+      properties:
+        apiKey:
+          type: string
+          description: The newly created project API key.
+    PromptSet:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        projectId:
+          type: string
+        prompts:
+          type: array
+          items:
+            $ref: '#/components/schemas/Prompt'
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+    Prompt:
+      type: object
+      properties:
+        id:
+          type: string
+        value:
+          type: string
+          description: The prompt string.
+        variables:
+          type: array
+          items:
+            type: string
+        model:
+          type: string
+        modelSettings:
+          type: object
+        version:
+          type: integer
+        live:
+          type: boolean
+        tags:
+          type: array
+          items:
+            type: string
+        spanId:
+          type: string
+        note:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+    GetTracesRequest:
+      type: object
+      required:
+        - projectId
+        - page
+        - pageSize
+      properties:
+        projectId:
+          type: string
+          description: ID of your project, found on the Langtrace traces tab.
+        page:
+          type: integer
+          description: Page number to retrieve. Starts from 1.
+        pageSize:
+          type: integer
+          maximum: 100
+          description: Number of traces to retrieve per page. Maximum value is 100.
+    GetTracesResponse:
+      type: object
+      properties:
+        traces:
+          type: object
+          properties:
+            result:
+              type: array
+              items:
+                type: object
+              description: List of retrieved traces.
+            metadata:
+              type: object
+              properties:
+                page:
+                  type: integer
+                page_size:
+                  type: integer
+                total_pages:
+                  type: integer
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+          description: Human-readable error message.

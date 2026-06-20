@@ -1,0 +1,112 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Langtrace AI API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "x-api-key",
+      "value": "{{apiKey}}",
+      "in": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Traces",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Send OpenTelemetry-compatible traces to Langtrace.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.langtrace.ai/api/trace",
+            "body": {
+              "type": "json",
+              "data": "{\"resourceSpans\":[]}"
+            }
+          },
+          "docs": "Ingests JSON-encoded OTLP/HTTP spans via an otlphttp exporter with JSON encoding and no compression. Authenticated with the x-api-key header."
+        },
+        {
+          "info": {
+            "name": "Download traces for a project.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.langtrace.ai/api/traces",
+            "body": {
+              "type": "json",
+              "data": "{\"projectId\":\"<string>\",\"page\":1,\"pageSize\":100}"
+            }
+          },
+          "docs": "Retrieves stored traces for a project, paginated. Up to 100 traces per page plus pagination metadata."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Projects",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create a new project.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.langtrace.ai/api/project",
+            "body": {
+              "type": "json",
+              "data": "{\"teamId\":\"<string>\",\"name\":\"<string>\",\"description\":\"<string>\",\"createDefaultTests\":false}"
+            }
+          },
+          "docs": "Creates a new project under the specified team."
+        },
+        {
+          "info": {
+            "name": "Create an API key for an existing project.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.langtrace.ai/api/api-key?project_id=<string>",
+            "body": {
+              "type": "none",
+              "data": ""
+            }
+          },
+          "docs": "Mints a new project-level API key for the given project."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Prompt Registry",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get a prompt from the registry.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.langtrace.ai/api/promptset?promptset_id=<string>&version=1"
+          },
+          "docs": "Fetches a prompt set from the prompt registry. If no version is provided the live prompt is returned."
+        }
+      ]
+    }
+  ]
+}

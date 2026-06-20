@@ -1,0 +1,97 @@
+specification: FinOps Framework
+specificationVersion: '1.0'
+schema: https://www.finops.org/framework/
+provider: Langtrace AI
+providerId: langtrace
+created: '2026-06-20'
+modified: '2026-06-20'
+reconciled: false
+tags:
+- AI
+- LLM
+- Observability
+- OpenTelemetry
+- Tracing
+- Open Source
+- FinOps
+- Cost Management
+- FOCUS
+description: >-
+  FinOps view of Langtrace spend. Langtrace is dual-distributed: a free,
+  self-hosted open-source build (AGPL-3.0) where the only cost is the
+  operator's own infrastructure, and Langtrace Cloud, billed on a span-metered
+  SaaS model with a Free tier, a per-seat Growth tier, and a sales-led
+  Enterprise tier. The primary Cloud cost driver is ingested span volume; seat
+  count drives Growth subscription cost.
+notes: >-
+  Cloud tiers, span allowances, and seat pricing are not reconciled; verify
+  against the Langtrace pricing page during reconciliation. Self-hosted has no
+  software license cost.
+sources:
+- https://www.langtrace.ai/pricing
+- https://docs.langtrace.ai/introduction
+- https://github.com/Scale3-Labs/langtrace
+- https://focus.finops.org/focus-specification/v1-3/
+alignedWith:
+  framework: FinOps Foundation Framework
+  frameworkUrl: https://www.finops.org/framework/
+  dataSpec: FOCUS
+  dataSpecVersion: '1.3'
+  dataSpecUrl: https://focus.finops.org/focus-specification/v1-3/
+publisherName: Langtrace AI
+serviceCategory: Observability and Monitoring
+billingModel:
+  pricingCategory: Usage-Based
+  billingFrequency: Monthly
+  billingCurrency: USD
+  chargeCategories:
+  - Usage
+  - Purchase
+  - Adjustment
+focusColumns:
+  ServiceName: Langtrace Cloud
+  ServiceCategory: Observability and Monitoring
+  ProviderName: Langtrace AI
+  PublisherName: Scale3 Labs
+  InvoiceIssuerName: Scale3 Labs
+  BillingCurrency: USD
+  ChargeCategory: Usage
+  PricingCategory: Usage-Based
+meters:
+- name: spans_ingested
+  description: OpenTelemetry spans ingested via /api/trace, metered against the plan span allowance.
+  unit: spans
+  aggregation: sum
+  dimensions:
+  - account
+  - project
+- name: seats
+  description: Billable users on the Growth tier, charged per user per month.
+  unit: seats
+  aggregation: max
+  dimensions:
+  - account
+- name: data_retention
+  description: Retention window for stored traces; longer retention is an Enterprise negotiation, not a self-serve meter.
+  unit: days
+  aggregation: max
+  dimensions:
+  - account
+- name: self_hosted_infrastructure
+  description: Operator-borne compute and storage cost for self-hosted Langtrace; no Langtrace software fee.
+  unit: infrastructure
+  aggregation: sum
+  dimensions:
+  - deployment
+principles:
+- name: Visibility
+  description: Track span ingestion per project against the plan allowance; inspect Cloud usage in the Langtrace console.
+- name: Allocation
+  description: Tag traces by project and API key; map projects to internal cost centers and teams.
+- name: Optimization
+  description: Self-host on owned infrastructure to avoid SaaS fees; sample or filter low-value spans to stay within span allowances; right-size retention.
+- name: Accountability
+  description: Assign owners per project/API key; review span burn and seat count monthly against budget.
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

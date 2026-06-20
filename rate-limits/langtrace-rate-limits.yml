@@ -1,0 +1,65 @@
+specification: API Commons Rate Limits
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/RateLimits
+provider: Langtrace AI
+providerId: langtrace
+created: '2026-06-20'
+modified: '2026-06-20'
+reconciled: false
+tags:
+- AI
+- LLM
+- Observability
+- OpenTelemetry
+- Tracing
+- Open Source
+- Rate Limiting
+- Quotas
+- Throttling
+description: >-
+  Langtrace does not publish explicit per-endpoint request rate limits for its
+  REST API. The practical ceiling on Langtrace Cloud is the span allowance of
+  the active plan (monthly/annual span quotas), rather than RPM/TPM throttles.
+  The trace retrieval endpoint caps pageSize at 100 traces per request, which
+  bounds read pagination. Self-hosted deployments are limited only by the
+  capacity of the operator's own infrastructure. Specific throttle values are
+  not reconciled in this artifact.
+notes: >-
+  Verify any per-account or per-endpoint limits in the Langtrace docs and
+  console on reconciliation. Cloud span allowances act as the primary usage
+  ceiling; self-hosted has no provider-imposed limit.
+sources:
+- https://docs.langtrace.ai/api-reference/traces/POST-traces
+- https://www.langtrace.ai/pricing
+- https://docs.langtrace.ai/introduction
+responseCodes:
+  throttled: 429
+limits:
+- name: Trace Retrieval Page Size
+  scope: request
+  metric: traces
+  limit: 100
+  notes: POST /api/traces caps pageSize at 100 traces per page.
+- name: Cloud Span Allowance
+  scope: account
+  metric: spans
+  limit: see plan / provider documentation
+  notes: Span quota per Cloud plan (e.g., Free monthly cap, Growth annual cap) acts as the usage ceiling.
+- name: Ingestion Rate
+  scope: account
+  metric: spans
+  limit: see provider documentation
+  notes: No published per-second ingestion throttle; bounded by plan span allowance on Cloud.
+- name: Self-Hosted
+  scope: deployment
+  metric: requests
+  limit: operator infrastructure capacity
+  notes: Self-hosted deployments have no provider-imposed rate limit.
+policies:
+- name: Span-Based Quotas
+  description: Cloud usage is governed by span allowances per plan rather than request-per-minute throttles.
+- name: Backoff Strategy
+  description: Clients should implement exponential backoff with jitter and honor Retry-After if a 429 is returned.
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

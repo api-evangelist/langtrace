@@ -1,0 +1,134 @@
+specification: API Commons Plans
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/Plans
+provider: Langtrace AI
+providerId: langtrace
+created: '2026-06-20'
+modified: '2026-06-20'
+reconciled: false
+tags:
+- AI
+- LLM
+- Observability
+- OpenTelemetry
+- Tracing
+- Open Source
+- Plans
+description: >-
+  Langtrace is open-source software (AGPL-3.0) and can be self-hosted at no
+  license cost; you pay only for your own infrastructure. Langtrace Cloud is
+  offered as a SaaS with a Free tier (individual developers, limited spans per
+  month), a paid Growth tier priced per user per month with a higher span
+  allowance, and a sales-led Enterprise tier with custom retention, SLAs, and
+  SOC 2 Type II compliance. Cloud metering is span-based.
+notes: >-
+  Cloud tier names, span allowances, and prices are drawn from secondary
+  sources and the public pricing page and are not reconciled. Verify current
+  tiers, span quotas, seat pricing, and retention against
+  https://www.langtrace.ai/pricing before relying on these values.
+sources:
+- https://www.langtrace.ai/pricing
+- https://docs.langtrace.ai/introduction
+- https://github.com/Scale3-Labs/langtrace
+plans:
+- id: langtrace-self-hosted
+  name: Self-Hosted (Open Source)
+  type: open_source
+  description: >-
+    Run the open-source Langtrace platform on your own infrastructure under
+    AGPL-3.0. No license or usage fee; you bear only your own hosting costs.
+  entries:
+  - label: Open Source License
+    name: self_hosted
+    type: flat
+    metric: license
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: free (AGPL-3.0, self-hosted infrastructure costs only)
+    userMultiplied: false
+  elements:
+  - name: Trace Ingestion (OTEL)
+  - name: Projects and API Keys
+  - name: Prompt Registry
+  - name: Trace Retrieval and Metrics
+  - name: Annotations and Dataset Curation
+  - name: Evaluations
+- id: langtrace-cloud-free
+  name: Free
+  type: free
+  description: >-
+    Langtrace Cloud free tier for individual developers, with a limited
+    monthly span allowance. Reconciled false; verify the current span limit.
+  entries:
+  - label: Included Spans
+    name: free_spans
+    type: usage
+    metric: spans
+    limit: 5000
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: $0
+    userMultiplied: false
+  elements:
+  - name: Tracing and Metrics
+  - name: Annotations and Dataset Curation
+  - name: Evaluations
+- id: langtrace-cloud-growth
+  name: Growth
+  type: paid
+  description: >-
+    Paid Langtrace Cloud tier priced per user per month, with a higher span
+    allowance plus cloud evaluations and priority support. Reconciled false;
+    verify the price and span quota.
+  entries:
+  - label: Per-Seat Subscription
+    name: growth_seat
+    type: flat
+    metric: seats
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: ~$31 per user / month
+    userMultiplied: true
+  - label: Included Spans
+    name: growth_spans
+    type: usage
+    metric: spans
+    limit: 500000
+    timeFrame: year
+    geo: global
+    unit: 1
+    price: included in subscription
+    userMultiplied: false
+  elements:
+  - name: Everything in Free
+  - name: Evaluations in the Cloud
+  - name: Priority Support
+- id: langtrace-cloud-enterprise
+  name: Enterprise
+  type: enterprise
+  description: >-
+    Sales-led Langtrace Cloud tier with custom retention policy, custom SLAs,
+    SOC 2 Type II compliance, and negotiated terms. Contact Langtrace sales.
+  entries:
+  - label: Enterprise Agreement
+    name: enterprise
+    type: flat
+    metric: contract
+    limit: -1
+    timeFrame: year
+    geo: global
+    unit: 1
+    price: contact sales
+    userMultiplied: false
+  elements:
+  - name: Custom Retention Policy
+  - name: Custom SLAs
+  - name: SOC 2 Type II Compliance
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

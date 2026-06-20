@@ -1,0 +1,286 @@
+{
+  "item": [
+    {
+      "id": "ltc-traces-folder",
+      "name": "Traces",
+      "description": {
+        "content": "OpenTelemetry trace ingestion and retrieval.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "ltc-send-trace",
+          "name": "Send OpenTelemetry-compatible traces to Langtrace.",
+          "request": {
+            "name": "Send OpenTelemetry-compatible traces to Langtrace.",
+            "description": {
+              "content": "Ingests JSON-encoded OTLP/HTTP spans. Use an OTEL exporter configured for the otlphttp protocol with JSON encoding and no compression.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "trace"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "x-api-key",
+                "value": "{{apiKey}}"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"resourceSpans\": []\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "id": "ltc-download-traces",
+          "name": "Download traces for a project.",
+          "request": {
+            "name": "Download traces for a project.",
+            "description": {
+              "content": "Retrieves stored traces for a project, paginated. Returns up to 100 traces per page along with pagination metadata.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "traces"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "x-api-key",
+                "value": "{{apiKey}}"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"projectId\": \"<string>\",\n  \"page\": 1,\n  \"pageSize\": 100\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "id": "ltc-projects-folder",
+      "name": "Projects",
+      "description": {
+        "content": "Project and API key management.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "ltc-create-project",
+          "name": "Create a new project.",
+          "request": {
+            "name": "Create a new project.",
+            "description": {
+              "content": "Creates a new project under the specified team.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "project"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "x-api-key",
+                "value": "{{apiKey}}"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"teamId\": \"<string>\",\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"createDefaultTests\": false\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "id": "ltc-create-api-key",
+          "name": "Create an API key for an existing project.",
+          "request": {
+            "name": "Create an API key for an existing project.",
+            "description": {
+              "content": "Mints a new project-level API key for the given project.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api-key"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "key": "project_id",
+                  "value": "<string>"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "x-api-key",
+                "value": "{{apiKey}}"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "id": "ltc-prompt-registry-folder",
+      "name": "Prompt Registry",
+      "description": {
+        "content": "Versioned prompt storage and retrieval.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "ltc-get-promptset",
+          "name": "Get a prompt from the registry.",
+          "request": {
+            "name": "Get a prompt from the registry.",
+            "description": {
+              "content": "Fetches a prompt set from the prompt registry. If no version is provided the live prompt is returned.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "promptset"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "key": "promptset_id",
+                  "value": "<string>"
+                },
+                {
+                  "key": "version",
+                  "value": "1"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "x-api-key",
+                "value": "{{apiKey}}"
+              }
+            ],
+            "method": "GET",
+            "auth": null,
+            "body": {}
+          },
+          "response": []
+        }
+      ]
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://app.langtrace.ai/api",
+      "key": "baseUrl"
+    },
+    {
+      "type": "string",
+      "value": "",
+      "key": "apiKey"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "x-api-key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "a7f3c1e0-1234-4abc-9def-langtrace0001",
+    "name": "Langtrace AI API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "REST API for Langtrace, an open-source, OpenTelemetry-based observability platform for LLM applications by Scale3 Labs. Covers OTLP/HTTP trace ingestion, project and API key management, the prompt registry, and paginated trace retrieval.\n\nContact: https://docs.langtrace.ai",
+      "type": "text/plain"
+    }
+  }
+}
