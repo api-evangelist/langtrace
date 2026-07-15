@@ -123,6 +123,8 @@ apis:
     returning span results plus pagination metadata. Underlying spans carry the token,
     cost, latency, and evaluation metrics surfaced in the Langtrace dashboards.
 common:
+- type: AgenticAccess
+  url: agentic-access/langtrace-agentic-access.yml
 - type: DomainSecurity
   url: security/langtrace-domain-security.yml
 - type: Authentication
