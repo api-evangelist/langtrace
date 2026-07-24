@@ -1,0 +1,125 @@
+openapi: 3.0.1
+info:
+  title: Langtrace AI Projects Prompt Registry API
+  description: REST API for Langtrace, an open-source, OpenTelemetry-based observability platform for LLM applications by Scale3 Labs. Covers OTLP/HTTP trace ingestion, project and API key management, the prompt registry, and paginated trace retrieval. The same endpoints are available on Langtrace Cloud (app.langtrace.ai) and on self-hosted deployments. All requests are authenticated with an x-api-key header.
+  termsOfService: https://www.langtrace.ai/terms
+  contact:
+    name: Langtrace AI Support
+    url: https://docs.langtrace.ai
+  license:
+    name: AGPL-3.0
+    url: https://github.com/Scale3-Labs/langtrace/blob/main/LICENSE
+  version: '1.0'
+servers:
+- url: https://app.langtrace.ai/api
+  description: Langtrace Cloud
+- url: http://localhost:3000/api
+  description: Self-hosted Langtrace deployment
+security:
+- ApiKeyAuth: []
+tags:
+- name: Prompt Registry
+  description: Versioned prompt storage and retrieval.
+paths:
+  /promptset:
+    get:
+      operationId: getPromptFromRegistry
+      tags:
+      - Prompt Registry
+      summary: Get a prompt from the registry.
+      description: Fetches a prompt set from the prompt registry. If no version is provided the live prompt is returned; if there are no live prompts an error is thrown. Dynamic variables may be supplied using variables.<variable_name> query parameters.
+      parameters:
+      - name: promptset_id
+        in: query
+        required: true
+        description: ID of the prompt registry, found in the Langtrace UI.
+        schema:
+          type: string
+      - name: version
+        in: query
+        required: false
+        description: Prompt version to fetch. Defaults to the live prompt.
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Prompt set returned.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PromptSet'
+        '401':
+          description: Invalid api key unauthorized.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+components:
+  schemas:
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+          description: Human-readable error message.
+    PromptSet:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        projectId:
+          type: string
+        prompts:
+          type: array
+          items:
+            $ref: '#/components/schemas/Prompt'
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+    Prompt:
+      type: object
+      properties:
+        id:
+          type: string
+        value:
+          type: string
+          description: The prompt string.
+        variables:
+          type: array
+          items:
+            type: string
+        model:
+          type: string
+        modelSettings:
+          type: object
+        version:
+          type: integer
+        live:
+          type: boolean
+        tags:
+          type: array
+          items:
+            type: string
+        spanId:
+          type: string
+        note:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: x-api-key
+      description: Project-level (or team-level for project creation) API key.

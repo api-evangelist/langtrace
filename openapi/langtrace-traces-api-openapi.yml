@@ -1,0 +1,131 @@
+openapi: 3.0.1
+info:
+  title: Langtrace AI Projects Traces API
+  description: REST API for Langtrace, an open-source, OpenTelemetry-based observability platform for LLM applications by Scale3 Labs. Covers OTLP/HTTP trace ingestion, project and API key management, the prompt registry, and paginated trace retrieval. The same endpoints are available on Langtrace Cloud (app.langtrace.ai) and on self-hosted deployments. All requests are authenticated with an x-api-key header.
+  termsOfService: https://www.langtrace.ai/terms
+  contact:
+    name: Langtrace AI Support
+    url: https://docs.langtrace.ai
+  license:
+    name: AGPL-3.0
+    url: https://github.com/Scale3-Labs/langtrace/blob/main/LICENSE
+  version: '1.0'
+servers:
+- url: https://app.langtrace.ai/api
+  description: Langtrace Cloud
+- url: http://localhost:3000/api
+  description: Self-hosted Langtrace deployment
+security:
+- ApiKeyAuth: []
+tags:
+- name: Traces
+  description: OpenTelemetry trace ingestion and retrieval.
+paths:
+  /trace:
+    post:
+      operationId: sendTrace
+      tags:
+      - Traces
+      summary: Send OpenTelemetry-compatible traces to Langtrace.
+      description: Ingests JSON-encoded OTLP/HTTP spans. Use an OTEL exporter configured for the otlphttp protocol with JSON encoding and no compression, and set the x-api-key header to a project-level API key. Available on Langtrace Cloud and self-hosted instances.
+      requestBody:
+        required: true
+        description: An OTLP/HTTP ExportTraceServiceRequest payload, JSON-encoded.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OTLPTraceExportRequest'
+      responses:
+        '200':
+          description: Traces accepted for ingestion.
+        '401':
+          description: Invalid or missing API key.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /traces:
+    post:
+      operationId: downloadTraces
+      tags:
+      - Traces
+      summary: Download traces for a project.
+      description: Retrieves stored traces for a project, paginated. Returns up to 100 traces per page along with pagination metadata.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GetTracesRequest'
+      responses:
+        '200':
+          description: Traces returned.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetTracesResponse'
+        '401':
+          description: Invalid api key unauthorized.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+components:
+  schemas:
+    OTLPTraceExportRequest:
+      type: object
+      description: OTLP/HTTP ExportTraceServiceRequest. JSON-encoded resource spans as produced by an OpenTelemetry exporter. See the OpenTelemetry protocol specification for the full structure.
+      properties:
+        resourceSpans:
+          type: array
+          items:
+            type: object
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+          description: Human-readable error message.
+    GetTracesRequest:
+      type: object
+      required:
+      - projectId
+      - page
+      - pageSize
+      properties:
+        projectId:
+          type: string
+          description: ID of your project, found on the Langtrace traces tab.
+        page:
+          type: integer
+          description: Page number to retrieve. Starts from 1.
+        pageSize:
+          type: integer
+          maximum: 100
+          description: Number of traces to retrieve per page. Maximum value is 100.
+    GetTracesResponse:
+      type: object
+      properties:
+        traces:
+          type: object
+          properties:
+            result:
+              type: array
+              items:
+                type: object
+              description: List of retrieved traces.
+            metadata:
+              type: object
+              properties:
+                page:
+                  type: integer
+                page_size:
+                  type: integer
+                total_pages:
+                  type: integer
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: x-api-key
+      description: Project-level (or team-level for project creation) API key.
