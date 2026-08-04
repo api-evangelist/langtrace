@@ -1,0 +1,18 @@
+{
+  "provider": "langtrace",
+  "sources": [
+    "langtrace-projects-api-openapi.yml",
+    "langtrace-prompt-registry-api-openapi.yml",
+    "langtrace-traces-api-openapi.yml"
+  ],
+  "outputs": [
+    "langtrace-projects-api-openapi.yml",
+    "langtrace-prompt-registry-api-openapi.yml",
+    "langtrace-traces-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
