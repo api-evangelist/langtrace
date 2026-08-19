@@ -1,0 +1,201 @@
+{
+  "item": [
+    {
+      "id": "f92c7e55-43e0-4128-a046-02e9364b4ce6",
+      "name": "Prompt Registry",
+      "description": {
+        "content": "Versioned prompt storage and retrieval.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "355ed8ae-4100-47f1-9fbd-e3d9ef82efd3",
+          "name": "Get a prompt from the registry.",
+          "request": {
+            "name": "Get a prompt from the registry.",
+            "description": {
+              "content": "Fetches a prompt set from the prompt registry. If no version is provided the live prompt is returned; if there are no live prompts an error is thrown. Dynamic variables may be supplied using variables.<variable_name> query parameters.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "promptset"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "promptset_id",
+                  "value": "<string>",
+                  "description": "(Required) ID of the prompt registry, found in the Langtrace UI."
+                },
+                {
+                  "disabled": false,
+                  "key": "version",
+                  "value": "<integer>",
+                  "description": "Prompt version to fetch. Defaults to the live prompt."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "20fb1966-0c7b-4079-a0f5-657a491942eb",
+              "name": "Prompt set returned.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "promptset"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "promptset_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "version",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"name\": \"string\",\n  \"description\": \"string\",\n  \"projectId\": \"string\",\n  \"prompts\": [\n    {\n      \"id\": \"string\",\n      \"value\": \"string\",\n      \"variables\": [\n        \"string\",\n        \"string\"\n      ],\n      \"model\": \"string\",\n      \"modelSettings\": {},\n      \"version\": 8258,\n      \"live\": false,\n      \"tags\": [\n        \"string\",\n        \"string\"\n      ],\n      \"spanId\": \"string\",\n      \"note\": \"string\",\n      \"createdAt\": \"2018-08-29T12:15:05.097Z\",\n      \"updatedAt\": \"1970-02-19T09:53:41.417Z\"\n    },\n    {\n      \"id\": \"string\",\n      \"value\": \"string\",\n      \"variables\": [\n        \"string\",\n        \"string\"\n      ],\n      \"model\": \"string\",\n      \"modelSettings\": {},\n      \"version\": 5115,\n      \"live\": true,\n      \"tags\": [\n        \"string\",\n        \"string\"\n      ],\n      \"spanId\": \"string\",\n      \"note\": \"string\",\n      \"createdAt\": \"2024-03-24T15:23:20.130Z\",\n      \"updatedAt\": \"1994-05-20T20:01:06.209Z\"\n    }\n  ],\n  \"createdAt\": \"2008-10-07T04:57:55.683Z\",\n  \"updatedAt\": \"1991-10-19T13:54:56.045Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9205824b-e6a4-4123-a688-6e35d2f69c40",
+              "name": "Invalid api key unauthorized.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "promptset"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "promptset_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "version",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://app.langtrace.ai/api",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "x-api-key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "e6b525da-f3d5-4d18-81bf-5fe60b66b39b",
+    "name": "Langtrace AI Projects Prompt Registry API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "REST API for Langtrace, an open-source, OpenTelemetry-based observability platform for LLM applications by Scale3 Labs. Covers OTLP/HTTP trace ingestion, project and API key management, the prompt registry, and paginated trace retrieval. The same endpoints are available on Langtrace Cloud (app.langtrace.ai) and on self-hosted deployments. All requests are authenticated with an x-api-key header.\n\nContact Support:\n Name: Langtrace AI Support",
+      "type": "text/plain"
+    }
+  }
+}

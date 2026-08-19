@@ -1,0 +1,60 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Langtrace AI Projects API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "x-api-key",
+      "value": "{{x-api-key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Projects",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create a new project.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.langtrace.ai/api/project",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new project under the specified team."
+        },
+        {
+          "info": {
+            "name": "Create an API key for an existing project.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.langtrace.ai/api/api-key",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "query",
+                "description": "ID of the project to create an API key for."
+              }
+            ]
+          },
+          "docs": "Mints a new project-level API key for the given project."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

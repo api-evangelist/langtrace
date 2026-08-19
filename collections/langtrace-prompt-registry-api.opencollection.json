@@ -1,0 +1,51 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Langtrace AI Projects Prompt Registry API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "x-api-key",
+      "value": "{{x-api-key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Prompt Registry",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get a prompt from the registry.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.langtrace.ai/api/promptset",
+            "params": [
+              {
+                "name": "promptset_id",
+                "value": "",
+                "type": "query",
+                "description": "ID of the prompt registry, found in the Langtrace UI."
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "query",
+                "description": "Prompt version to fetch. Defaults to the live prompt."
+              }
+            ]
+          },
+          "docs": "Fetches a prompt set from the prompt registry. If no version is provided the live prompt is returned; if there are no live prompts an error is thrown. Dynamic variables may be supplied using variables.<variable_name> query parameters."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

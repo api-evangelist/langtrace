@@ -1,0 +1,56 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Langtrace AI Projects Traces API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "x-api-key",
+      "value": "{{x-api-key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Traces",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Send OpenTelemetry-compatible traces to Langtrace.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.langtrace.ai/api/trace",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Ingests JSON-encoded OTLP/HTTP spans. Use an OTEL exporter configured for the otlphttp protocol with JSON encoding and no compression, and set the x-api-key header to a project-level API key. Available on Langtrace Cloud and self-hosted instances."
+        },
+        {
+          "info": {
+            "name": "Download traces for a project.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.langtrace.ai/api/traces",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Retrieves stored traces for a project, paginated. Returns up to 100 traces per page along with pagination metadata."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
