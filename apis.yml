@@ -23,6 +23,13 @@ accessModel:
   method: derived
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/langtrace.png
 tags:
+- Artificial Intelligence
+- LLM
+- Observability
+- OpenTelemetry
+- Tracing
+- Open-Source
+tags_raw:
 - AI
 - LLM
 - Observability
@@ -39,6 +46,8 @@ apis:
   humanURL: https://docs.langtrace.ai/api-reference/traces/POST-trace
   baseURL: https://app.langtrace.ai/api
   tags:
+  - Project
+  tags_raw:
   - Projects
   properties:
   - type: OpenAPI
