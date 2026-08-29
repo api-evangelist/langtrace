@@ -8,6 +8,18 @@ description: Langtrace is an open-source, OpenTelemetry-based end-to-end observa
   Traces are ingested via an OTLP/HTTP endpoint and a REST API exposes projects,
   prompt registry, and trace retrieval. Available as a free self-hosted deployment
   or as Langtrace Cloud.
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: true
+  label: Hosted service · you call their endpoint
+  confidence: high
+  source:
+  - openapi
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: freemium
   onboarding: self-serve
