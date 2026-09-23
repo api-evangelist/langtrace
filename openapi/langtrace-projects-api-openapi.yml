@@ -1,4 +1,4 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
   title: Langtrace AI Projects API
   description: REST API for Langtrace, an open-source, OpenTelemetry-based observability platform for LLM applications by Scale3 Labs. Covers OTLP/HTTP trace ingestion, project and API key management, the prompt registry, and paginated trace retrieval. The same endpoints are available on Langtrace Cloud (app.langtrace.ai) and on self-hosted deployments. All requests are authenticated with an x-api-key header.
@@ -26,7 +26,7 @@ paths:
       operationId: createProject
       tags:
       - Projects
-      summary: Create a new project.
+      summary: Create a new project
       description: Creates a new project under the specified team.
       requestBody:
         required: true
@@ -52,7 +52,7 @@ paths:
       operationId: createProjectApiKey
       tags:
       - Projects
-      summary: Create an API key for an existing project.
+      summary: Create an API key for an existing project
       description: Mints a new project-level API key for the given project.
       parameters:
       - name: project_id
@@ -76,6 +76,12 @@ paths:
                 $ref: '#/components/schemas/Error'
 components:
   schemas:
+    ApiKeyResponse:
+      type: object
+      properties:
+        apiKey:
+          type: string
+          description: The newly created project API key.
     CreateProjectRequest:
       type: object
       required:
@@ -110,12 +116,6 @@ components:
         updatedAt:
           type: string
           format: date-time
-    ApiKeyResponse:
-      type: object
-      properties:
-        apiKey:
-          type: string
-          description: The newly created project API key.
     Error:
       type: object
       properties:

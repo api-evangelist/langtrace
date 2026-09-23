@@ -1,6 +1,6 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
-  title: Langtrace AI Projects Prompt Registry API
+  title: Langtrace AI Prompt Registry API
   description: REST API for Langtrace, an open-source, OpenTelemetry-based observability platform for LLM applications by Scale3 Labs. Covers OTLP/HTTP trace ingestion, project and API key management, the prompt registry, and paginated trace retrieval. The same endpoints are available on Langtrace Cloud (app.langtrace.ai) and on self-hosted deployments. All requests are authenticated with an x-api-key header.
   termsOfService: https://www.langtrace.ai/terms
   contact:
@@ -26,8 +26,8 @@ paths:
       operationId: getPromptFromRegistry
       tags:
       - Prompt Registry
-      summary: Get a prompt from the registry.
-      description: Fetches a prompt set from the prompt registry. If no version is provided the live prompt is returned; if there are no live prompts an error is thrown. Dynamic variables may be supplied using variables.<variable_name> query parameters.
+      summary: Get a prompt from the registry
+      description: Fetches a prompt set from the prompt registry. If no version is provided the live prompt is returned; if there are no live prompts an error is thrown. Dynamic variables may be supplied using variables. query parameters.
       parameters:
       - name: promptset_id
         in: query
@@ -56,12 +56,6 @@ paths:
                 $ref: '#/components/schemas/Error'
 components:
   schemas:
-    Error:
-      type: object
-      properties:
-        message:
-          type: string
-          description: Human-readable error message.
     PromptSet:
       type: object
       properties:
@@ -117,6 +111,12 @@ components:
         updatedAt:
           type: string
           format: date-time
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+          description: Human-readable error message.
   securitySchemes:
     ApiKeyAuth:
       type: apiKey

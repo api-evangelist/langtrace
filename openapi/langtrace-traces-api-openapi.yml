@@ -1,6 +1,6 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
-  title: Langtrace AI Projects Traces API
+  title: Langtrace AI Traces API
   description: REST API for Langtrace, an open-source, OpenTelemetry-based observability platform for LLM applications by Scale3 Labs. Covers OTLP/HTTP trace ingestion, project and API key management, the prompt registry, and paginated trace retrieval. The same endpoints are available on Langtrace Cloud (app.langtrace.ai) and on self-hosted deployments. All requests are authenticated with an x-api-key header.
   termsOfService: https://www.langtrace.ai/terms
   contact:
@@ -26,7 +26,7 @@ paths:
       operationId: sendTrace
       tags:
       - Traces
-      summary: Send OpenTelemetry-compatible traces to Langtrace.
+      summary: Send OpenTelemetry-compatible traces to Langtrace
       description: Ingests JSON-encoded OTLP/HTTP spans. Use an OTEL exporter configured for the otlphttp protocol with JSON encoding and no compression, and set the x-api-key header to a project-level API key. Available on Langtrace Cloud and self-hosted instances.
       requestBody:
         required: true
@@ -49,7 +49,7 @@ paths:
       operationId: downloadTraces
       tags:
       - Traces
-      summary: Download traces for a project.
+      summary: Download traces for a project
       description: Retrieves stored traces for a project, paginated. Returns up to 100 traces per page along with pagination metadata.
       requestBody:
         required: true
@@ -72,20 +72,6 @@ paths:
                 $ref: '#/components/schemas/Error'
 components:
   schemas:
-    OTLPTraceExportRequest:
-      type: object
-      description: OTLP/HTTP ExportTraceServiceRequest. JSON-encoded resource spans as produced by an OpenTelemetry exporter. See the OpenTelemetry protocol specification for the full structure.
-      properties:
-        resourceSpans:
-          type: array
-          items:
-            type: object
-    Error:
-      type: object
-      properties:
-        message:
-          type: string
-          description: Human-readable error message.
     GetTracesRequest:
       type: object
       required:
@@ -123,6 +109,20 @@ components:
                   type: integer
                 total_pages:
                   type: integer
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+          description: Human-readable error message.
+    OTLPTraceExportRequest:
+      type: object
+      description: OTLP/HTTP ExportTraceServiceRequest. JSON-encoded resource spans as produced by an OpenTelemetry exporter. See the OpenTelemetry protocol specification for the full structure.
+      properties:
+        resourceSpans:
+          type: array
+          items:
+            type: object
   securitySchemes:
     ApiKeyAuth:
       type: apiKey
