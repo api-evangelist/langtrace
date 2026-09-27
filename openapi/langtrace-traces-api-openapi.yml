@@ -72,23 +72,6 @@ paths:
                 $ref: '#/components/schemas/Error'
 components:
   schemas:
-    GetTracesRequest:
-      type: object
-      required:
-      - projectId
-      - page
-      - pageSize
-      properties:
-        projectId:
-          type: string
-          description: ID of your project, found on the Langtrace traces tab.
-        page:
-          type: integer
-          description: Page number to retrieve. Starts from 1.
-        pageSize:
-          type: integer
-          maximum: 100
-          description: Number of traces to retrieve per page. Maximum value is 100.
     GetTracesResponse:
       type: object
       properties:
@@ -109,12 +92,6 @@ components:
                   type: integer
                 total_pages:
                   type: integer
-    Error:
-      type: object
-      properties:
-        message:
-          type: string
-          description: Human-readable error message.
     OTLPTraceExportRequest:
       type: object
       description: OTLP/HTTP ExportTraceServiceRequest. JSON-encoded resource spans as produced by an OpenTelemetry exporter. See the OpenTelemetry protocol specification for the full structure.
@@ -123,6 +100,29 @@ components:
           type: array
           items:
             type: object
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+          description: Human-readable error message.
+    GetTracesRequest:
+      type: object
+      required:
+      - projectId
+      - page
+      - pageSize
+      properties:
+        projectId:
+          type: string
+          description: ID of your project, found on the Langtrace traces tab.
+        page:
+          type: integer
+          description: Page number to retrieve. Starts from 1.
+        pageSize:
+          type: integer
+          maximum: 100
+          description: Number of traces to retrieve per page. Maximum value is 100.
   securitySchemes:
     ApiKeyAuth:
       type: apiKey

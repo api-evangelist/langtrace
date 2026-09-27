@@ -56,27 +56,6 @@ paths:
                 $ref: '#/components/schemas/Error'
 components:
   schemas:
-    PromptSet:
-      type: object
-      properties:
-        id:
-          type: string
-        name:
-          type: string
-        description:
-          type: string
-        projectId:
-          type: string
-        prompts:
-          type: array
-          items:
-            $ref: '#/components/schemas/Prompt'
-        createdAt:
-          type: string
-          format: date-time
-        updatedAt:
-          type: string
-          format: date-time
     Prompt:
       type: object
       properties:
@@ -105,6 +84,27 @@ components:
           type: string
         note:
           type: string
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+    PromptSet:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        projectId:
+          type: string
+        prompts:
+          type: array
+          items:
+            $ref: '#/components/schemas/Prompt'
         createdAt:
           type: string
           format: date-time
