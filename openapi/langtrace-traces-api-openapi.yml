@@ -100,12 +100,6 @@ components:
           type: array
           items:
             type: object
-    Error:
-      type: object
-      properties:
-        message:
-          type: string
-          description: Human-readable error message.
     GetTracesRequest:
       type: object
       required:
@@ -123,6 +117,12 @@ components:
           type: integer
           maximum: 100
           description: Number of traces to retrieve per page. Maximum value is 100.
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+          description: Human-readable error message.
   securitySchemes:
     ApiKeyAuth:
       type: apiKey

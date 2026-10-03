@@ -76,6 +76,23 @@ paths:
                 $ref: '#/components/schemas/Error'
 components:
   schemas:
+    Project:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        teamId:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
     ApiKeyResponse:
       type: object
       properties:
@@ -99,23 +116,6 @@ components:
         createDefaultTests:
           type: boolean
           description: Whether default tests should be created.
-    Project:
-      type: object
-      properties:
-        id:
-          type: string
-        name:
-          type: string
-        description:
-          type: string
-        teamId:
-          type: string
-        createdAt:
-          type: string
-          format: date-time
-        updatedAt:
-          type: string
-          format: date-time
     Error:
       type: object
       properties:
