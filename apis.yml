@@ -40,6 +40,9 @@ accessModel:
   generated: '2026-07-22'
   method: derived
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/langtrace.png
+x-docs-platform: mintlify
+x-docs-platform-confidence: medium
+x-docs-platform-checked: 2026-10-03
 tags:
 - Artificial Intelligence
 - LLM
@@ -158,6 +161,9 @@ apis:
   - type: APIReference
     url: https://docs.langtrace.ai/api-reference/traces/POST-traces
 common:
+- type: CapabilityMap
+  url: capabilities/langtrace-capability-edges.yml
+  name: Langtrace AI Business Capability Map
 - type: AgenticAccess
   url: agentic-access/langtrace-agentic-access.yml
 - type: DomainSecurity
