@@ -93,6 +93,12 @@ components:
         updatedAt:
           type: string
           format: date-time
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+          description: Human-readable error message.
     ApiKeyResponse:
       type: object
       properties:
@@ -116,12 +122,6 @@ components:
         createDefaultTests:
           type: boolean
           description: Whether default tests should be created.
-    Error:
-      type: object
-      properties:
-        message:
-          type: string
-          description: Human-readable error message.
   securitySchemes:
     ApiKeyAuth:
       type: apiKey
