@@ -76,35 +76,18 @@ paths:
                 $ref: '#/components/schemas/Error'
 components:
   schemas:
-    Project:
-      type: object
-      properties:
-        id:
-          type: string
-        name:
-          type: string
-        description:
-          type: string
-        teamId:
-          type: string
-        createdAt:
-          type: string
-          format: date-time
-        updatedAt:
-          type: string
-          format: date-time
-    Error:
-      type: object
-      properties:
-        message:
-          type: string
-          description: Human-readable error message.
     ApiKeyResponse:
       type: object
       properties:
         apiKey:
           type: string
           description: The newly created project API key.
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+          description: Human-readable error message.
     CreateProjectRequest:
       type: object
       required:
@@ -122,6 +105,23 @@ components:
         createDefaultTests:
           type: boolean
           description: Whether default tests should be created.
+    Project:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        teamId:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
   securitySchemes:
     ApiKeyAuth:
       type: apiKey
