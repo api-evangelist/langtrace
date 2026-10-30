@@ -1,4 +1,4 @@
-# Langtrace AI (langtrace)
+# Langtrace AI
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -66,125 +66,119 @@
 
 Langtrace is an open-source, OpenTelemetry-based end-to-end observability platform for LLM applications, built by Scale3 Labs. It captures real-time traces, metrics, and evaluations for popular LLMs, agent frameworks, and vector databases. Traces are ingested via an OTLP/HTTP endpoint and a REST API exposes projects, prompt registry, and trace retrieval. Available as a free self-hosted deployment or as Langtrace Cloud.
 
-**APIs.json:** [https://raw.githubusercontent.com/api-evangelist/langtrace/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/langtrace/refs/heads/main/apis.yml)
+**Areas:** Artificial Intelligence · LLM · Observability · OpenTelemetry · Tracing · Open Source
 
-## Tags
+## Langtrace AI on APIs.io
 
-- AI
-- LLM
-- Observability
-- OpenTelemetry
-- Tracing
-- Open Source
+Everything profiled for Langtrace AI is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/langtrace/](https://apis.io/providers/langtrace/)** — or go straight to one of the APIs or properties below.
 
-## Timestamps
+### APIs (3)
 
-- **Created:** 2026-06-20
-- **Modified:** 2026-06-20
+- [Langtrace AI Projects API](https://apis.io/apis/langtrace/langtrace-projects-api/) — Project and API key management.
+- [Langtrace AI Prompt Registry API](https://apis.io/apis/langtrace/langtrace-prompt-registry-api/) — Versioned prompt storage and retrieval.
+- [Langtrace AI Traces API](https://apis.io/apis/langtrace/langtrace-traces-api/) — OpenTelemetry trace ingestion and retrieval.
 
-## APIs
+### Published properties
 
-### Langtrace Trace Ingestion (OTEL)
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-OpenTelemetry-compatible trace ingestion endpoint (POST /api/trace). Accepts JSON-encoded OTLP/HTTP spans authenticated with a project-level x-api-key header, for both Langtrace Cloud and self-hosted deployments.
+#### Agentic access (1)
 
-- **Human URL:** [https://docs.langtrace.ai/api-reference/traces/POST-trace](https://docs.langtrace.ai/api-reference/traces/POST-trace)
-- **Base URL:** `https://app.langtrace.ai/api`
+Which operations an agent can call, which act, and which need a human in the loop.
 
-#### Tags
+- [Langtrace Agentic Access](https://apis.io/agentic-access/langtrace/langtrace-agentic-access/)
 
-- OpenTelemetry
-- Tracing
-- Ingestion
-- OTLP
+#### Collections (4)
 
-#### Properties
+Postman and Open Collection request collections.
 
-- [Documentation](https://docs.langtrace.ai/supported-integrations/otel-support/otel-configuration)
-- [API Reference](https://docs.langtrace.ai/api-reference/traces/POST-trace)
-- [OpenAPI](openapi/langtrace-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/langtrace.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/langtrace.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [GitHub](https://github.com/Scale3-Labs/langtrace)
+- [Langtrace AI API](https://apis.io/collections/langtrace/open-langtrace/)
+- [Langtrace AI Projects API](https://apis.io/collections/langtrace/open-langtrace-projects-api/)
+- [Langtrace AI Projects Prompt Registry API](https://apis.io/collections/langtrace/open-langtrace-prompt-registry-api/)
+- [Langtrace AI Projects Traces API](https://apis.io/collections/langtrace/open-langtrace-traces-api/)
 
-### Langtrace Projects and API Keys
+#### Security (2)
 
-REST endpoints to create projects (POST /api/project) under a team and to mint project-level API keys (POST /api/api-key), authenticated with an x-api-key header.
+Authentication, trust centre, and vulnerability disclosure.
 
-- **Human URL:** [https://docs.langtrace.ai/api-reference/project/POST-project](https://docs.langtrace.ai/api-reference/project/POST-project)
-- **Base URL:** `https://app.langtrace.ai/api`
+- [Langtrace Authentication](https://apis.io/security/langtrace/langtrace-authentication/)
+- [Langtrace Domain Security](https://apis.io/security/langtrace/langtrace-domain-security/)
 
-#### Tags
+#### Plans and pricing (1)
 
-- Projects
-- API Keys
-- Management
+Published plans, tiers and prices.
 
-#### Properties
+- [Langtrace Plans Pricing](https://apis.io/plans/langtrace/langtrace-plans-pricing/)
 
-- [Documentation](https://docs.langtrace.ai/api-reference/project/POST-project)
-- [API Reference](https://docs.langtrace.ai/api-reference/project/POST-project-api-key)
-- [OpenAPI](openapi/langtrace-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/langtrace.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/langtrace.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [GitHub](https://github.com/Scale3-Labs/langtrace)
+#### Rate limits (1)
 
-### Langtrace Prompt Registry
+Published request limits.
 
-Fetch versioned prompts from the prompt registry (GET /api/promptset) with optional version selection and dynamic variable substitution, returning the live prompt when no version is specified.
+- [Langtrace Rate Limits](https://apis.io/rate-limits/langtrace/langtrace-rate-limits/)
 
-- **Human URL:** [https://docs.langtrace.ai/api-reference/prompt-registry/GET-prompt-registry](https://docs.langtrace.ai/api-reference/prompt-registry/GET-prompt-registry)
-- **Base URL:** `https://app.langtrace.ai/api`
+#### FinOps (1)
 
-#### Tags
+What the API costs to run, by operation.
 
-- Prompt Registry
-- Versioning
-- Prompts
+- [Langtrace Finops](https://apis.io/finops/langtrace/langtrace-finops/)
 
-#### Properties
+## Where to find this API
 
-- [Documentation](https://docs.langtrace.ai/api-reference/prompt-registry/GET-prompt-registry)
-- [API Reference](https://docs.langtrace.ai/api-reference/prompt-registry/GET-prompt-registry)
-- [OpenAPI](openapi/langtrace-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/langtrace.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/langtrace.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [GitHub](https://github.com/Scale3-Labs/langtrace)
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
 
-### Langtrace Trace Retrieval and Metrics
-
-Paginated retrieval of stored traces for a project (POST /api/traces), returning span results plus pagination metadata. Underlying spans carry the token, cost, latency, and evaluation metrics surfaced in the Langtrace dashboards.
-
-- **Human URL:** [https://docs.langtrace.ai/api-reference/traces/POST-traces](https://docs.langtrace.ai/api-reference/traces/POST-traces)
-- **Base URL:** `https://app.langtrace.ai/api`
-
-#### Tags
-
-- Traces
-- Metrics
-- Retrieval
-- Evaluations
-
-#### Properties
-
-- [Documentation](https://docs.langtrace.ai/api-reference/traces/POST-traces)
-- [API Reference](https://docs.langtrace.ai/api-reference/traces/POST-traces)
-- [OpenAPI](openapi/langtrace-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/langtrace.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/langtrace.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [GitHub](https://github.com/Scale3-Labs/langtrace)
-
-## Common Properties
-
-- [GitHub Organization](https://github.com/Scale3-Labs)
-- [LinkedIn](https://www.linkedin.com/company/langtrace)
 - [Website](https://www.langtrace.ai)
 - [Documentation](https://docs.langtrace.ai)
-- [Plans](plans/langtrace-plans-pricing.yml)
-- [Rate Limits](rate-limits/langtrace-rate-limits.yml)
-- [Fin Ops](finops/langtrace-finops.yml)
+- [GitHub](https://github.com/Scale3-Labs)
 
-## Maintainers
+## API Evangelist rating
 
-**FN:** Kin Lane
-**Email:** kin@apievangelist.com
+**Kin Score 26.3** — thin · rubric 0.24.0 · scored 2026-10-17
+
+| Facet | Score |
+|---|---|
+| Discoverability | 66.1 |
+| Contract quality | 48.4 |
+| Contract governance | 0.0 |
+| Operational transparency | 10.5 |
+| Developer ergonomics | 29.8 |
+| Access clarity | 7.9 |
+
+**Agent readiness 23.7** — agent-aware
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | — |
+| MCP Server | — |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | verified |
+| OpenAPI Examples | — |
+| Rate Limit Signal | derived (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+
+**Regulatory alignment 10.9** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/langtrace/](https://apis.io/providers/langtrace/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Langtrace AI: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/langtrace/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
